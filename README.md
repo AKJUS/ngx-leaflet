@@ -1,9 +1,9 @@
 # @bluehalo/ngx-leaflet
 
-[![Build Status][travis-image]][travis-url]
+[![Build Status][ci-image]][ci-url]
 
-[travis-url]: https://travis-ci.org/Asymmetrik/ngx-leaflet/
-[travis-image]: https://travis-ci.org/Asymmetrik/ngx-leaflet.svg?branch=master
+[ci-url]: https://github.com/bluehalo/ngx-leaflet/actions/workflows/ci.yml
+[ci-image]: https://github.com/bluehalo/ngx-leaflet/actions/workflows/ci.yml/badge.svg
 
 > Leaflet packages for Angular.io.
 > Provides flexible and extensible components for integrating Leaflet v0.7.x and v1.x into Angular.io projects.
@@ -303,19 +303,19 @@ There are several input bindings available for configuring the map.
 ```
 
 #### [leafletOptions]
-Input binding for the initial leaflet map options (see [Leaflet's](https://leafletjs.com/SlavaUkraini/reference.html#map-option) docs). These options can only be set initially because they are used to create the map. Later changes are ignored.
+Input binding for the initial leaflet map options (see [Leaflet's](https://leafletjs.com/reference.html#map-option) docs). These options can only be set initially because they are used to create the map. Later changes are ignored.
 
 #### [leafletPanOptions]
-Input binding for pan options (see [Leaflet's](https://leafletjs.com/SlavaUkraini/reference.html#pan-options) docs). These options are stored and used whenever pan operations are invoked.
+Input binding for pan options (see [Leaflet's](https://leafletjs.com/reference.html#pan-options) docs). These options are stored and used whenever pan operations are invoked.
 
 #### [leafletZoomOptions]
-Input binding for zoom options (see [Leaflet's](https://leafletjs.com/SlavaUkraini/reference.html#zoom-options) docs). These options are stored and used whenever zoom operations are invoked.
+Input binding for zoom options (see [Leaflet's](https://leafletjs.com/reference.html#zoom-options) docs). These options are stored and used whenever zoom operations are invoked.
 
 #### [leafletZoomPanOptions]
-Input binding for zoom/pan options (see [Leaflet's](https://leafletjs.com/SlavaUkraini/reference.html#zoom/pan-options) docs). These options are stored and used whenever zoom/pan operations are invoked.
+Input binding for zoom/pan options (see [Leaflet's](https://leafletjs.com/reference.html#zoom/pan-options) docs). These options are stored and used whenever zoom/pan operations are invoked.
 
 #### [leafletFitBoundsOptions]
-Input binding for FitBounds options (see [Leaflet's](https://leafletjs.com/SlavaUkraini/reference.html#fitbounds-options) docs). These options are stored and used whenever FitBounds operations are invoked.
+Input binding for FitBounds options (see [Leaflet's](https://leafletjs.com/reference.html#fitbounds-options) docs). These options are stored and used whenever FitBounds operations are invoked.
 
 
 ### Dynamically changing zoom level, center, fitBounds, etc.
@@ -390,7 +390,7 @@ Because it uses ```control.layers``` under the hood, you can still provide optio
 
 
 #### [leafletLayersControlOptions]
-Input binding for Control.Layers options (see [Leaflet's](https://leafletjs.com/SlavaUkraini) docs).
+Input binding for Control.Layers options (see [Leaflet's](https://leafletjs.com/reference.html) docs).
 These options are passed into the layers control constructor on creation.
 
 
@@ -440,7 +440,7 @@ layersControl: {
 ```
 
 #### [leafletLayersControlOptions]
-Input binding for Control.Layers options (see [Leaflet's](https://leafletjs.com/SlavaUkraini) docs).
+Input binding for Control.Layers options (see [Leaflet's](https://leafletjs.com/reference.html) docs).
 These options are passed into the constructor on creation.
 
 
