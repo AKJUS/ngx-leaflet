@@ -1,5 +1,8 @@
 # Changelog
 
+## 21.1.0
+Improve type definitions across directives and models — replace `any` with proper Leaflet types (`TileLayerOptions`, `Control.LayersOptions`, `ReturnType<typeof setTimeout>`, etc.). TypeScript consumers benefit from better type safety and IDE support. Note: if you were relying on `any` to pass plugin-extended option types, you may need to cast to the appropriate base type (fixes #385).
+
 ## 21.0.1
 Fix map event listener leak in `ngOnDestroy` - `map.off()` is now called before `map.remove()` to ensure all listeners registered via `addMapEventListeners()` are properly released (fixes #376).
 
