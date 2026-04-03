@@ -54,6 +54,9 @@ export class LeafletBaseLayersDirective
     // Active Base Layer
     private baseLayer: Layer;
 
+    // Track whether the map has been removed, to avoid redundant cleanup on destroy
+    private mapUnloaded = false;
+
     private leafletDirective: LeafletDirectiveWrapper;
     private controlLayers: LeafletControlLayersWrapper;
 
@@ -64,7 +67,12 @@ export class LeafletBaseLayersDirective
     }
 
     ngOnDestroy() {
-        this.baseLayers = {};
+        // Only clean up layer listeners from the control if the map is still alive.
+        // If the map was already removed (mapUnloaded=true), its teardown already cleared
+        // those listeners — calling removeLayer() again would produce "listener not found" warnings.
+        if (!this.mapUnloaded) {
+            this.baseLayers = {};
+        }
         if (null != this.controlLayers.getLayersControl()) {
             this.controlLayers.getLayersControl().remove();
         }
@@ -75,13 +83,16 @@ export class LeafletBaseLayersDirective
         // Init the map
         this.leafletDirective.init();
 
-        // Create the control outside angular to prevent events from triggering chnage detection
+        // Create the control outside angular to prevent events from triggering change detection
         this.zone.runOutsideAngular(() => {
 
             // Initially configure the controlLayers
             this.controlLayers
                 .init({}, this.layersControlOptions)
                 .addTo(this.leafletDirective.getMap());
+
+            // Track map removal so ngOnDestroy can skip redundant layer cleanup
+            this.leafletDirective.getMap().on('unload', () => { this.mapUnloaded = true; });
 
         });
 

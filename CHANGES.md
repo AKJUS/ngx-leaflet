@@ -1,5 +1,8 @@
 # Changelog
 
+## 21.1.1
+Fix "listener not found" console warnings when a component using `[leafletBaseLayers]` is destroyed. The root cause was a non-deterministic destruction order between sibling Angular directives — if `LeafletDirective` destroyed first, its map cleanup already removed the layer event listeners that `LeafletBaseLayersDirective` then tried to remove again. Fix: listen to Leaflet's `unload` event to detect when the map has been removed and skip the redundant layer cleanup in that case (fixes #334).
+
 ## 21.1.0
 Improve type definitions across directives and models — replace `any` with proper Leaflet types (`TileLayerOptions`, `Control.LayersOptions`, `ReturnType<typeof setTimeout>`, etc.). TypeScript consumers benefit from better type safety and IDE support. Note: if you were relying on `any` to pass plugin-extended option types, you may need to cast to the appropriate base type (fixes #385).
 
