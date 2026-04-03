@@ -1,5 +1,8 @@
 # Changelog
 
+## 21.0.1
+Fix map event listener leak in `ngOnDestroy` - `map.off()` is now called before `map.remove()` to ensure all listeners registered via `addMapEventListeners()` are properly released (fixes #376).
+
 ## 21.0
 Support for Angular.io 21.
 
