@@ -1,5 +1,8 @@
 # Changelog
 
+## 21.2.0
+Add `(leafletOverlayAdd)` and `(leafletOverlayRemove)` output bindings to the `[leafletLayersControl]` directive. These pass through Leaflet's `overlayadd` and `overlayremove` map events, which fire when a user checks or unchecks an overlay in the layers control. Event data is typed as `LayersControlEvent` (provides `layer` and `name`). Closes #285.
+
 ## 21.1.1
 Fix "listener not found" console warnings when a component using `[leafletBaseLayers]` is destroyed. The root cause was a non-deterministic destruction order between sibling Angular directives — if `LeafletDirective` destroyed first, its map cleanup already removed the layer event listeners that `LeafletBaseLayersDirective` then tried to remove again. Fix: listen to Leaflet's `unload` event to detect when the map has been removed and skip the redundant layer cleanup in that case (fixes #334).
 

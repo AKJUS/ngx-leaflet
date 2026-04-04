@@ -3,10 +3,11 @@ import {
     Output
 } from '@angular/core';
 
-import { Control, Layer } from 'leaflet';
+import { Control, Layer, LayersControlEvent } from 'leaflet';
 
 import { LeafletDirective } from '../../core/leaflet.directive';
 import { LeafletDirectiveWrapper } from '../../core/leaflet.directive.wrapper';
+import { LeafletUtil } from '../../core/leaflet.util';
 import { LeafletControlLayersWrapper } from './leaflet-control-layers.wrapper';
 import { LeafletControlLayersConfig } from './leaflet-control-layers-config.model';
 
@@ -56,8 +57,16 @@ export class LeafletLayersControlDirective
 
     @Output('leafletLayersControlReady') layersControlReady = new EventEmitter<Control.Layers>();
 
+    // Overlay events — fired by the map when a user checks/unchecks an overlay in the layers control
+    @Output('leafletOverlayAdd') onOverlayAdd = new EventEmitter<LayersControlEvent>();
+    @Output('leafletOverlayRemove') onOverlayRemove = new EventEmitter<LayersControlEvent>();
+
     private controlLayers: LeafletControlLayersWrapper;
     private leafletDirective: LeafletDirectiveWrapper;
+
+    // Store handler refs for explicit cleanup in ngOnDestroy
+    private overlayAddHandler: (e: LayersControlEvent) => void;
+    private overlayRemoveHandler: (e: LayersControlEvent) => void;
 
     constructor(leafletDirective: LeafletDirective, private differs: KeyValueDiffers, private zone: NgZone) {
         this.leafletDirective = new LeafletDirectiveWrapper(leafletDirective);
@@ -82,6 +91,13 @@ export class LeafletLayersControlDirective
                 .init({}, this.layersControlOptions)
                 .addTo(this.leafletDirective.getMap());
 
+            // Register overlay event pass-throughs
+            const map = this.leafletDirective.getMap();
+            this.overlayAddHandler = (e: LayersControlEvent) => LeafletUtil.handleEvent(this.zone, this.onOverlayAdd, e);
+            this.overlayRemoveHandler = (e: LayersControlEvent) => LeafletUtil.handleEvent(this.zone, this.onOverlayRemove, e);
+            map.on('overlayadd', this.overlayAddHandler);
+            map.on('overlayremove', this.overlayRemoveHandler);
+
         });
 
         this.updateLayers();
@@ -89,6 +105,11 @@ export class LeafletLayersControlDirective
     }
 
     ngOnDestroy() {
+        const map = this.leafletDirective.getMap();
+        if (null != map) {
+            map.off('overlayadd', this.overlayAddHandler);
+            map.off('overlayremove', this.overlayRemoveHandler);
+        }
         this.layersControlConfig = { baseLayers: {}, overlays: {} };
         this.controlLayers.getLayersControl().remove();
     }
