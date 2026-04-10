@@ -17,6 +17,7 @@
 - [Usage](#usage)
 - [API](#api)
 - [Extensions](#extensions)
+- [Recipes](#recipes)
 - [Getting Help](#help)
 - [Contribute](#contribute)
 - [License](#license)
@@ -649,6 +650,91 @@ There are several libraries that extend the core functionality of ngx-leaflet:
 * [Leaflet Draw](https://github.com/BlueHalo/ngx-leaflet-draw)
 * [Leaflet Markercluster](https://github.com/BlueHalo/ngx-leaflet-markercluster)
 * [Leaflet D3 (Hexbins)](https://github.com/BlueHalo/ngx-leaflet-d3)
+
+
+## Recipes
+
+> **Note:** This section will move to `docs/cookbook.md` as part of a planned README restructure ([#392](https://github.com/bluehalo/ngx-leaflet/issues/392)).
+
+### Using Angular Components in Marker Popups
+
+Leaflet manages popup DOM elements outside of Angular's component tree, so you can't use Angular template syntax directly. The recommended approach is to use Angular's `createComponent()` API to render a component into a plain `HTMLElement`, then pass that element to Leaflet's `bindPopup()`.
+
+**1. Create your popup component** as you normally would:
+
+```typescript
+// popup.component.ts
+import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'app-popup',
+  template: `<div><h3>{{ title }}</h3><p>{{ description }}</p></div>`
+})
+export class PopupComponent {
+  @Input() title = '';
+  @Input() description = '';
+}
+```
+
+**2. Create a service** to handle component creation and lifecycle:
+
+```typescript
+// popup.service.ts
+import {
+  ApplicationRef, ComponentRef, createComponent,
+  EnvironmentInjector, Injectable, Injector
+} from '@angular/core';
+import { PopupComponent } from './popup.component';
+
+@Injectable({ providedIn: 'root' })
+export class PopupService {
+  private refs: ComponentRef<unknown>[] = [];
+  private elements: HTMLElement[] = [];
+
+  constructor(
+    private injector: Injector,
+    private environmentInjector: EnvironmentInjector,
+    private applicationRef: ApplicationRef
+  ) {}
+
+  createPopup(title: string, description: string): HTMLElement {
+    const element = document.createElement('div');
+    const ref = createComponent(PopupComponent, {
+      elementInjector: this.injector,
+      environmentInjector: this.environmentInjector,
+      hostElement: element
+    });
+    this.applicationRef.attachView(ref.hostView);
+    ref.instance.title = title;
+    ref.instance.description = description;
+    this.refs.push(ref);
+    this.elements.push(element);
+    return element;
+  }
+
+  // Call this when markers are removed to avoid memory leaks
+  cleanup(): void {
+    this.refs.splice(0).forEach(ref => ref.destroy());
+    this.elements.splice(0).forEach(el => el.remove());
+  }
+}
+```
+
+**3. Use it in your map component:**
+
+```typescript
+onMapReady(map: Map): void {
+  marker([51.5, -0.09])
+    .bindPopup(this.popupService.createPopup('Hello', 'Angular component in a Leaflet popup'))
+    .addTo(map);
+}
+
+ngOnDestroy(): void {
+  this.popupService.cleanup();
+}
+```
+
+> **Memory leak warning:** Each call to `createComponent()` creates a live Angular view. If you remove and redraw markers frequently, call `cleanup()` before redrawing to destroy the old component refs and remove the detached DOM elements.
 
 
 ## <a name="help">Getting Help</a>
