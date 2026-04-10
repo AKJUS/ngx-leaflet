@@ -1,6 +1,6 @@
 # @bluehalo/ngx-leaflet
 
-<p align="center">
+<p align="left">
   <img src="assets/logo.svg" alt="ngx-leaflet" width="200">
 </p>
 
