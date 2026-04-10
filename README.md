@@ -1,5 +1,9 @@
 # @bluehalo/ngx-leaflet
 
+<p align="center">
+  <img src="assets/logo.svg" alt="ngx-leaflet" width="200">
+</p>
+
 [![Build Status][ci-image]][ci-url]
 
 [ci-url]: https://github.com/bluehalo/ngx-leaflet/actions/workflows/ci.yml
@@ -665,3 +669,5 @@ See LICENSE in repository for details.
 
 ## Credits
 **[Leaflet](http://leafletjs.com/)** Is an awesome mapping package.
+
+**Logo** designed by [@jjmhalew](https://github.com/jjmhalew) ([#371](https://github.com/bluehalo/ngx-leaflet/issues/371)).
