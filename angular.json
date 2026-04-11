@@ -140,6 +140,10 @@
           "builder": "@angular/build:karma",
           "options": {
             "main": "projects/ngx-leaflet/src/test.ts",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
             "tsConfig": "projects/ngx-leaflet/tsconfig.spec.json",
             "karmaConfig": "projects/ngx-leaflet/karma.conf.js"
           }
