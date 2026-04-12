@@ -5,6 +5,7 @@ on:
     branches: [master]
   pull_request:
     branches: [master]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -25,3 +26,4 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: coverage/ngx-leaflet/lcov.info
           fail_ci_if_error: false
+          verbose: true
