@@ -145,7 +145,8 @@
               "zone.js/testing"
             ],
             "tsConfig": "projects/ngx-leaflet/tsconfig.spec.json",
-            "karmaConfig": "projects/ngx-leaflet/karma.conf.js"
+            "karmaConfig": "projects/ngx-leaflet/karma.conf.js",
+            "codeCoverage": true
           }
         }
       }
