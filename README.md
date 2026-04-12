@@ -5,9 +5,12 @@
 </p>
 
 [![Build Status][ci-image]][ci-url]
+[![Code Coverage][coverage-image]][coverage-url]
 
 [ci-url]: https://github.com/bluehalo/ngx-leaflet/actions/workflows/ci.yml
 [ci-image]: https://github.com/bluehalo/ngx-leaflet/actions/workflows/ci.yml/badge.svg
+[coverage-url]: https://codecov.io/gh/bluehalo/ngx-leaflet
+[coverage-image]: https://codecov.io/gh/bluehalo/ngx-leaflet/graph/badge.svg
 
 > Leaflet packages for Angular.io.
 > Provides flexible and extensible components for integrating Leaflet v0.7.x and v1.x into Angular.io projects.
