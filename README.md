@@ -20,7 +20,7 @@
 - [Usage](#usage)
 - [API](docs/API.md)
 - [Extensions](#extensions)
-- [Recipes & Cookbook](docs/cookbook.md)
+- [Cookbook](docs/cookbook.md)
 - [Getting Help](#help)
 - [Contribute](#contribute)
 - [License](#license)
@@ -265,9 +265,9 @@ There are several libraries that extend the core functionality of ngx-leaflet:
 * [Leaflet D3 (Hexbins)](https://github.com/bluehalo/ngx-leaflet-d3)
 
 
-## Recipes
+## Cookbook
 
-Common patterns and troubleshooting tips are in [docs/cookbook.md](docs/cookbook.md), including:
+Common patterns and examples are in [docs/cookbook.md](docs/cookbook.md), including:
 - [Marker Setup](docs/cookbook.md#marker-setup) — configuring Leaflet markers with the Angular CLI build pipeline
 - [SSR / Server-Side Rendering](docs/cookbook.md#ssr--server-side-rendering) — working around Leaflet's browser-only module initialization
 - [Angular Components in Marker Popups](docs/cookbook.md#angular-components-in-marker-popups) — using `createComponent()` to render Angular components into Leaflet popups
@@ -283,11 +283,11 @@ Here's a list of articles, tutorials, guides, and help resources:
 
 
 ## Contribute
-PRs accepted. If you are part of BlueHalo, please make contributions on feature branches off of the ```develop``` branch. If you are outside of BlueHalo, please fork our repo to make contributions.
+PRs accepted. Please make contributions on feature branches and open a pull request against `master`.
 
 
 ## License
-See LICENSE in repository for details.
+See [LICENSE](LICENSE) for details.
 
 
 ## Credits
