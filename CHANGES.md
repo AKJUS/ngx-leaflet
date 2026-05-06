@@ -1,5 +1,11 @@
 # Changelog
 
+## 21.2.1
+- Docs: restructured README — extracted API reference and Recipes to docs/; added Angular component popup pattern to Recipes
+- Tests: expanded unit test coverage to 91 tests across all directives; added Codecov integration
+- CI: upgraded to Node 24, actions/checkout and actions/setup-node to v6
+- Chore: updated copyright to BlueHalo LLC; added npm version badge
+
 ## 21.2.0
 Add `(leafletOverlayAdd)` and `(leafletOverlayRemove)` output bindings to the `[leafletLayersControl]` directive. These pass through Leaflet's `overlayadd` and `overlayremove` map events, which fire when a user checks or unchecks an overlay in the layers control. Event data is typed as `LayersControlEvent` (provides `layer` and `name`). Closes #285.
 
